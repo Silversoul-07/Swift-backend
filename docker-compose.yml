@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      target: backend
+    container_name: backend
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - ACCESS_KEY=${ACCESS_KEY}
+      - SECRET_KEY=${SECRET_KEY}
+    expose:
+      - "8000"
+    restart: always
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    container_name: nginx
+    ports:
+      - "443:443"  # HTTPS port
+      - "80:80"    # HTTP port (optional, for redirect)
+    volumes:
+      - ./certs:/etc/nginx/ssl
+    depends_on:
+      - backend
+    restart: always
