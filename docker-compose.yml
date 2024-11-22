@@ -24,6 +24,7 @@ services:
       - "80:80"
     volumes:
       - ./certs:/etc/nginx/ssl
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf.template
     environment:
       - SERVER_NAME=${SERVER_NAME}
     depends_on:
