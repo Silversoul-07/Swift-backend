@@ -20,10 +20,12 @@ services:
       target: nginx
     container_name: nginx
     ports:
-      - "443:443"  # HTTPS port
-      - "80:80"    # HTTP port (optional, for redirect)
+      - "443:443"
+      - "80:80"
     volumes:
       - ./certs:/etc/nginx/ssl
+    environment:
+      - SERVER_NAME=${SERVER_NAME}
     depends_on:
       - backend
     restart: always

@@ -6,6 +6,7 @@ from app.route import router
 from app.utils import create_courses, init_db
 from app.database import get_db
 from contextlib import asynccontextmanager
+import os
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -23,6 +24,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+os.makedirs("media")
 
 app.mount("/dp", StaticFiles(directory="media"), name="Dp")
 

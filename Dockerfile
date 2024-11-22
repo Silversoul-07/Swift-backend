@@ -8,6 +8,7 @@ CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # Stage 2: Setup Nginx
 FROM nginx:alpine AS nginx
+COPY .env /etc/nginx/.env
 COPY --from=backend /backend /backend
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY certs/certificate.crt /etc/nginx/ssl/certificate.crt
